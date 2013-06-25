@@ -1,0 +1,13 @@
+{
+    "Mode" : "dev",
+    "Layout" : "default",
+    "Name" : "JowRick.fr",
+    "Database" : {
+        "Default":{
+            "Driver" : "mysql",
+            "Host" : "localhost",
+            "Login" : "root",
+            "Password" : ""
+        }
+    }
+}
