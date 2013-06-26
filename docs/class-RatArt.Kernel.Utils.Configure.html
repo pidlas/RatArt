@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class RatArt\Kernel\Utils\Configure | RatArt</title>
+
+	<script type="text/javascript" src="resources/combined.js?3628334692"></script>
+	<script type="text/javascript" src="elementlist.js?1562753718"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-Composer.html">Composer<span></span></a>
+						<ul>
+				<li><a href="namespace-Composer.Autoload.html">Autoload</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-RatArt.html">RatArt<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-RatArt.Kernel.html">Kernel<span></span></a>
+						<ul>
+				<li><a href="namespace-RatArt.Kernel.Http.html">Http</a>
+						</li>
+				<li class="active"><a href="namespace-RatArt.Kernel.Utils.html">Utils</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-RatArt.Kernel.Utils.Configure.html">Configure</a></li>
+				<li><a href="class-RatArt.Kernel.Utils.Dot.html">Dot</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-RatArt.Kernel.Utils.html" title="Summary of RatArt\Kernel\Utils"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Configure</h1>
+
+
+	<div class="description">
+	
+<p>Cette classe permet de dialoguer avec une configuration donnée.
+&lt;italic&gt;Cette classe utilise le Dot Notation &lt;/italic&gt;</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-RatArt.html">RatArt</a>\<a href="namespace-RatArt.Kernel.html">Kernel</a>\<a href="namespace-RatArt.Kernel.Utils.html">Utils</a><br />
+		<b>Package:</b> RatArt\Kernel\Utils<br />
+
+		<b>Located at</b> <a href="source-class-RatArt.Kernel.Utils.Configure.html#7-50" title="Go to source code">Lib/RatArt/Kernel/Utils/Configure.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="write" id="_write">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_write">#</a>
+		<code><a href="source-class-RatArt.Kernel.Utils.Configure.html#18-28" title="Go to source code">write</a>( <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Donne à la clé la valeur souhaitée.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Donne à la clé la valeur souhaitée.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd><code>string</code><br>$key Le chemin de la clé ( en Dot Notation )</dd>
+					<dt><var>$value</var></dt>
+					<dd><code>mixed</code><br>$value La valeur associée à la clé</dd>
+				</dl></div>
+
+
+
+				<h4>Example</h4>
+				<div class="list">
+						Configure::write('App.Database.Blog') ercit la valeur des données "database"
+dans $this-&gt;_data<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="read" id="_read">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_read">#</a>
+		<code><a href="source-class-RatArt.Kernel.Utils.Configure.html#31-47" title="Go to source code">read</a>( <span>string <var>$key</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Lit la valeur de la clé dans les configurations</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Lit la valeur de la clé dans les configurations</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd><code>string</code><br>$key Le nom de la clé</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Example</h4>
+				<div class="list">
+						Configure::read('database.blog') retourne la valeur du tableau correspondant
+dans $this-&gt;_data sous forme de tableau si possible<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="_data" id="$_data">
+		<td class="attributes"><code>
+			public static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-RatArt.Kernel.Utils.Configure.html#16" title="Go to source code"><var>$_data</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="description"><div>
+			<a href="#$_data" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		RatArt API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
