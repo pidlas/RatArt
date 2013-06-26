@@ -1,22 +1,18 @@
 <?php
     //so long but necessary
-    chdir(dirname(dirname(dirname(dirname(__FILE__)))));
-
-    $vendor_autoloader = dirname(dirname(dirname(dirname(__FILE__))))."/vendor/autoload.php";
+    chdir(ROOT);
+    $vendor_autoloader = ROOT.DS."vendor".DS."autoload.php";
     require_once $vendor_autoloader;
 
     function autoload($class)
     {
-        $root = dirname(dirname(dirname(dirname(__FILE__))));
-
-        $file = str_replace('\\', DIRECTORY_SEPARATOR, $class).".php";
+        $file = str_replace('\\', DS, $class).".php";
 
         if (strpos($file,'RatArt') === 0) {
-            require_once $root.DIRECTORY_SEPARATOR.'Lib'.DIRECTORY_SEPARATOR.$file;
+            require_once ROOT.DS.'Lib'.DS.$file;
         } else {
             require_once $file;
         }
-
 
     }
 

@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule (.*) App/Web/$1 [L]
+RewriteRule (.*) App/Web/$1
