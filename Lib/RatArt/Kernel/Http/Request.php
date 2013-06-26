@@ -6,7 +6,7 @@ namespace RatArt\Kernel\Http;
  * Represente la requete Http effectuée par le navigateur du client
  * @package RatArt.Kernel.Http
  */
-class Request implements \ArrayAccess{
+class Request {
 
 
     /**
