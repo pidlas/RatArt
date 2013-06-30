@@ -1,7 +1,7 @@
 {
     "Mode" : "dev",
     "Layout" : "default",
-    "Name" : "JowRick.fr",
+    "Name" : "framework.io",
     "Database" : {
         "Default":{
             "Driver" : "mysql",

@@ -1,0 +1,13 @@
+{
+    "Pages_Home":{
+        "url"     :"/",
+        "action" : "home"
+    },
+
+    "Pages_Show":{
+        "url" : "/show/(:alpha)-(:num)",
+        "action" : "show",
+        "vars" : "slug,id"
+    }
+
+}
