@@ -1,7 +1,15 @@
 {
-    "Pages_Home":{
+    "Pages_Hello":{
+        "url"     :"/hello/(:alpha)",
+        "action" : "hello",
+        "vars" : "name",
+        "auto-render" : true
+    },
+
+     "Pages_Home":{
         "url"     :"/",
-        "action" : "home"
+        "action" : "home",
+        "auto-render" : true
     },
 
     "Pages_Show":{

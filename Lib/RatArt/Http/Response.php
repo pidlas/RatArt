@@ -4,23 +4,27 @@ namespace RatArt\Http;
 
 /**
 * Représente une simple réponse Http
+* @package RatArt.Http
 */
 class Response
 {
 
     /**
      * Ce sont les en-têtes HTTP envoyé
+     *
      * @var array
      */
     protected $headers = array();
 
     /**
      * Tout le contenu Html retourné
+     *
      * @var string
      */
     protected $content = '';
 
     /**
+     *Le Constructeur.
      *
      * @param string|null $content Le contenu de la réponse Html
      */
@@ -35,6 +39,7 @@ class Response
 
     /**
      * Retourne le contenu Html
+     *
      * @return string Le contenu Html
      */
     public function getContent()
@@ -43,6 +48,7 @@ class Response
     }
     /**
      * Remplace le contenu de la réponse avant envoi
+     *
      * @param string $content Le contenu Html
      */
     public function setContent($content)
@@ -52,6 +58,7 @@ class Response
     }
     /**
      * Rajoute du contenu Html avant l'envoi
+     *
      * @param string Le contenu à rajouté
      */
     public function addContent($content)
@@ -61,6 +68,7 @@ class Response
     }
     /**
      * Envoi la réponse Http et son contenu
+     *
      */
     public function send()
     {

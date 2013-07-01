@@ -1,7 +1,6 @@
 <?php
 
-    use RatArt\Http\Request;
-    use RatArt\Http\Response;
+    use RatArt\Debug\Debug;
 
     define('ROOT', dirname(dirname(dirname(__FILE__))));
     define('DS',DIRECTORY_SEPARATOR);
@@ -11,7 +10,5 @@
     $configs = json_decode(file_get_contents('App/Config/App.json'),true);
     new RatArt\App($configs);
 
-    $Request = new Request();
 
-
-
+    Debug::timer();

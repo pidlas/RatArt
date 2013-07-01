@@ -37,7 +37,7 @@ class Configure
      */
     public static function read($key = null)
     {
-        if (is_null($key)) {
+        if (is_null($key) or $key === '') {
             return self::$_data;
         } else {
             return Dot::get(self::$_data,$key);

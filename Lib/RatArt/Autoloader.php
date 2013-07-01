@@ -17,5 +17,8 @@
     }
 
     spl_autoload_register('autoload');
+    require_once dirname(__FILE__).DS.'Bootstrap.php';
+
+
 
  ?>

@@ -4,7 +4,7 @@ namespace RatArt;
 
 use RatArt\Utils\Configure;
 use RatArt\Routing\Router;
-
+use RatArt\Debug\Debug;
 
 /**
 *  C'est le point d'entrée de l'application
@@ -28,6 +28,10 @@ class App
         Configure::write('App',$this->_configs);
         $Router = new Router();
         $Router->dispatch();
+        Debug::timer();
+
+        require_once ROOT.DS."Lib".DS."RatArt".DS."Bootstrap.php";
+
     }
 
 

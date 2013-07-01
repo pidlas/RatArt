@@ -11,6 +11,7 @@ class Request {
 
     /**
      * C'est toutes le données postées
+     *
      * @var array
      */
 
@@ -22,6 +23,7 @@ class Request {
 
     /**
      * Créer ou remplace un ou plusieurs ent-têtes serveur
+     *
      * @param string|array L'en-tête à modifier
      */
     public function setHeader($header)
@@ -38,6 +40,7 @@ class Request {
     }
     /**
      * Récupere le chemin de l'url sans l'hote HTTP
+     *
      * @return string Le l'url
      */
     public function requestURI()
@@ -59,6 +62,7 @@ class Request {
 
     /**
      * Recupere la racine de l'url
+     *
      * @return string La racine
      */
     public function getURIRoot()
