@@ -3,6 +3,7 @@
 namespace RatArt\Routing;
 use RatArt\Routing\Route;
 use RatArt\Http\Request;
+use RatArt\Bundle\AppController;
 /**
  * Le router permet de lier une URL à un Bundle spécifique et à une action
  * @package RatArt.Routing
@@ -14,9 +15,14 @@ class Router
      * @access private
      */
     private  $routes = array();
+    /**
+     * @var RatArt\Bundle\AppController Le Controller Basique
+     * @access private
+     */
+    private $Controller;
 
     function __construct() {
-
+        $this->Controller = new AppController();
     }
 
     /**
@@ -31,6 +37,12 @@ class Router
 
     }
 
+    /**
+     * Trouve une route qui correspond à une URL
+     *
+     * @param string $url L'Url qui doit correspondre à une route
+     * @return RatArt\Routing\Route Une instance de la route trouvée
+     */
     public function getRoute($url)
     {
         //On parcourt toutes les routes
@@ -55,7 +67,7 @@ class Router
             }
 
         }
-        die('404 Not Found');
+        $this->Controller->notFound('404 Not Found');
     }
 
     /**
@@ -107,7 +119,8 @@ class Router
         $classController = 'App\\Bundle\\'.$matchedRoute->getBundle().'\\Controller';
         $parentController = get_parent_class($classController);
         if (!in_array($matchedRoute->getAction(), array_diff(get_class_methods($classController),get_class_methods($parentController)))) {
-            die('404 not found');
+            $this->Controller->notFound('404 not found');
+
         } else {
             // Equivalent de call_user_func_array pour les namespaces
             $reflection = new \ReflectionMethod($classController,$matchedRoute->getAction());
@@ -117,7 +130,7 @@ class Router
             if ($matchedRoute->getAutoRender()) {
                 // On instancie le controller
                 $classController = new $classController();
-                $classController->render('@'.$matchedRoute->getBundle().DS."View".DS.$matchedRoute->getAction());
+                $classController->render('@Bundle'.DS.$matchedRoute->getBundle().DS."View".DS.$matchedRoute->getAction());
             }
 
         }

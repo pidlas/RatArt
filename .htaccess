@@ -1,2 +1,4 @@
-RewriteEngine On
-RewriteRule (.*) App/Web/$1
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule (.*) App/Web/$1
+</IfModule>

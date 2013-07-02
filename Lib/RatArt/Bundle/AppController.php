@@ -45,7 +45,7 @@ class AppController
     public function render($file,$vars = null)
     {
         Debug::timer();
-        $view = str_replace('.php', '', str_replace('@', ROOT.DS.'App'.DS.'Bundle'.DS, $file)).'.php';
+        $view = str_replace('.php', '', str_replace('@', ROOT.DS.'App'.DS, $file)).'.php';
 
         if (!is_null($vars)) {
             extract($vars);
@@ -66,6 +66,12 @@ class AppController
         }
     }
 
+    /**
+     * Permet de donner à la vue des variables
+     *
+     * @param string|array Le nom de la variable ou un tableau contenant plusieurs variables
+     * @param mixed|null La valeur de la variable ou rien si $key est un tableau
+     */
     public function set($key,$value = null)
     {
         if (is_array($key)) {
@@ -73,5 +79,16 @@ class AppController
         } else {
             self::$variables[$key] = $value;
         }
+    }
+
+    /**
+     * Indique au visiteur que la page n'a pu etre trouvée
+     */
+    public function notFound($message)
+    {
+        $this->Response->setCode(404);
+        $this->render('@Template/error.php',array(
+            'message'=> $message
+        ));
     }
 }
