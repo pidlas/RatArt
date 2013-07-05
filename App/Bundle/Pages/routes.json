@@ -1,4 +1,10 @@
 {
+     "Pages_Home":{
+        "url"     :"/",
+        "action" : "home",
+        "auto-render" : true
+    },
+
     "Pages_Hello":{
         "url"     :"/hello/(:alpha)",
         "action" : "hello",
@@ -6,16 +12,10 @@
         "auto-render" : true
     },
 
-     "Pages_Home":{
-        "url"     :"/",
-        "action" : "home",
-        "auto-render" : true
-    },
 
     "Pages_Show":{
         "url" : "/show/(:alpha)-(:num)",
         "action" : "show",
         "vars" : "slug,id"
     }
-
 }

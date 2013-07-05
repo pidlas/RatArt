@@ -11,9 +11,10 @@ use RatArt\Http\Response;
 class Controller extends AppController
 {
 
+    protected $Helpers = array('Html');
+
     public function homeAction()
     {
-        # code...
     }
 
     public function helloAction($name)

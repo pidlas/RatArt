@@ -1,6 +1,8 @@
 <?php
 
 namespace RatArt\Routing;
+
+use RatArt\Utils\Configure;
 /**
 * Répresente une route qui sera uitlisé pour le Routing
 * @package RatArt.Routing
@@ -20,34 +22,40 @@ class Route
 
     /**
      * @var string Le nom du Bundle
-     * @access protected
+     * @access public
      */
-    protected $Bundle;
+    public $Bundle;
     /**
      * @var string Le nom de la route
-     * @access protected
+     * @access public
      */
-    protected $Name ;
+    public $Name ;
     /**
      * @var array Les champs de configurations ( contient l'url, l'action et les variables )
-     * @access protected
+     * @access public
      */
-    protected $field;
+    public $field;
     /**
      * @var string L'action ( qui est contenu dans $field )
-     * @access protected
+     * @access public
      */
-    protected $action;
+    public $action;
     /**
      * @var array Le nom des variables
-     * @access protected
+     * @access public
      */
-    protected $varsName;
+    public $varsName;
     /**
      * @var array Toutes les variables contenues dans l'url
-     * @access protected
+     * @access public
      */
-    protected $vars = array();
+    public $vars = array();
+
+    /**
+     * @var string Le format de l'url c'est à dire l'url avec le noms des variables à leurs emplacements (ex: /hello/:name)
+     * @access public
+     */
+    private static $urlFormat;
 
     /**
      * Le constructeur d'une route ( c'est ce qui la définie comme telle )
@@ -59,6 +67,8 @@ class Route
      */
     function __construct($Bundle,$Name,array $field,array $varsName)
     {
+
+        //parametrage
        $this->setBundle($Bundle);
        $this->setName($Name);
        $this->setField($field);
@@ -66,6 +76,16 @@ class Route
        $this->setAction($this->field['action']);
        $this->setVarsName($varsName);
        $this->setAutoRender(isset($this->field['auto-render'])?true:false);
+
+        if ($this->getUrl() !== '\/') {
+
+            if ($this->hasExtension() !== false) {
+                $this->setUrl($this->getUrl(). '.'.$this->hasExtension());
+            } elseif (Configure::read('App.Routes.HasExtension') === true and Configure::read('App.Routes.Extension') !== '') {
+                $this->setUrl($this->getUrl(). '.'.Configure::read('App.Routes.Extension'));
+            }
+
+        }
     }
 
     /**
@@ -80,6 +100,7 @@ class Route
         foreach ($rules as $rule => $regex) {
             $url = str_replace($rule,$regex, $url);
         }
+        $url = str_replace('.', '\.',$url);
         $url = str_replace('/', '\/', $url);
         return $url;
     }
@@ -91,6 +112,7 @@ class Route
     public function match($url)
     {
         if (preg_match('`^'.$this->field['url'].'$`', $url,$matches)) {
+            $this->setFormatUrl($matches);
             return $matches;
         } else {
             return false;
@@ -256,5 +278,46 @@ class Route
     {
         return $this->field['auto-render'];
     }
+
+    /**
+     * Dit si l'url à une extension ou non
+     *
+     * @return string|false Retourne l'extension ou false
+     */
+    public function hasExtension()
+    {
+        if (isset($this->field['extension'])) {
+           return $this->field['extension'];
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * Permet de connaître le format de l'url
+     *
+     * @param array $urlParams Les parametres de l'url
+     */
+    public function setFormatUrl(array $urlParams)
+    {
+        $url = array_shift($urlParams);
+        $vars = $this->getVarsName();
+        foreach ($urlParams as $key => $value) {
+            $url = str_replace($value, '(:'.$vars[$key].')', $url);
+        }
+        self::$urlFormat = $url;
+    }
+
+    /**
+     * Retourne le format de l'url avec le placement des variables dans l'url
+     *
+     * @return string Le format de l'url
+     */
+    public function getUrlFormat()
+    {
+        return self::$urlFormat;
+    }
+
 
 }

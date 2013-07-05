@@ -4,6 +4,7 @@ namespace RatArt\Routing;
 use RatArt\Routing\Route;
 use RatArt\Http\Request;
 use RatArt\Bundle\AppController;
+
 /**
  * Le router permet de lier une URL à un Bundle spécifique et à une action
  * @package RatArt.Routing
@@ -14,15 +15,19 @@ class Router
      * @var array Toutes les routes sont stockées ici
      * @access private
      */
-    private  $routes = array();
+    private static  $routes = array();
     /**
      * @var RatArt\Bundle\AppController Le Controller Basique
      * @access private
      */
     private $Controller;
 
+    private $Request ;
+
     function __construct() {
         $this->Controller = new AppController();
+        $this->Request = new Request();
+
     }
 
     /**
@@ -31,10 +36,9 @@ class Router
      */
     public function addRoute(Route $route)
     {
-        if (!in_array($route, $this->routes)) {
-            $this->routes[] = $route;
+        if (!in_array($route, self::$routes)) {
+            self::$routes[] = $route;
         }
-
     }
 
     /**
@@ -46,7 +50,7 @@ class Router
     public function getRoute($url)
     {
         //On parcourt toutes les routes
-        foreach ($this->routes as $route) {
+        foreach (self::$routes as $route) {
             //Si l'URL correspond
             if ( $route->match($url) !== false) {
                 $varsValues = $route->match($url);
@@ -101,7 +105,6 @@ class Router
         foreach ($routes as $route => $options) {
             $vars = array();
             // On cherche les champs
-
             foreach ($options as $field) {
                 if (isset($field['vars']) && $field['vars'] != '') {
                     $vars = explode(',', $field['vars']);
@@ -135,6 +138,36 @@ class Router
 
         }
 
+    }
+
+    /**
+     * Créer une url correspondant à une route décrite
+     *
+     * @param array $params Les composants requis pour identifier la route et la parser correctement.
+     * @param boolean $relative Le chemin est-il relatif ?
+     */
+    public function createUrl(array $params)
+    {
+      $name = $params['name'];
+      $url = '';
+      foreach (self::$routes as $route) {
+        if ($route->Name === $name) {
+            if (isset($params['params'])) {
+                $vars = $route->getVarsName();
+                $urlParams=explode(',',$params['params']);
+                preg_match_all("/\([^)]+\)/", $route->getUrl(),$matches);
+                foreach ($matches[0] as $key => $value) {
+
+                    $url = str_replace($value, $urlParams[$key], $route->getUrl());
+
+                }
+            }else{
+                $url = $route->getUrl();
+            }
+        }
+      }
+      $url = str_replace('\/', '/', $url);
+      return str_replace('//', '/', $this->Request->getRoot().$url);
 
     }
 

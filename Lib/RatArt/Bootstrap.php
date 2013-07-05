@@ -1,6 +1,6 @@
 <?php
 
-use RatArt\Debug\Debug;
+use RatArt\Utils\Debug;
 use RatArt\Utils\Configure;
 Debug::timer();
 
@@ -15,7 +15,7 @@ Debug::timer();
                     $debug[$files]['file'] = str_replace('\\', '/', str_replace('@'.DS, '@', str_replace(ROOT, '@', $value['file']))) ;
                 }
             }
-            Debug::log($arguments,$debug);
+            Debug::dump($arguments,$debug);
         }
     };
 ?>

@@ -2,7 +2,7 @@
 
 namespace RatArt\Bundle;
 
-use RatArt\Debug\Debug ;
+use RatArt\Utils\Debug ;
 use RatArt\Http\Response ;
 
 /**
@@ -22,6 +22,8 @@ class AppController
      */
     protected $Response ;
 
+    protected $Helpers = array();
+
     /**
      * @var string Le nom du layout utilisé ( le fichier se trouvant dans le dossier App/Template )
      */
@@ -34,6 +36,7 @@ class AppController
     {
         Debug::timer();
         $this->Response = new Response();
+        $this->loadHelper($this->Helpers);
     }
 
     /**
@@ -91,4 +94,25 @@ class AppController
             'message'=> $message
         ));
     }
+
+    /**
+     * Permet de charger un Helper
+     * @param string $name Le nom du Helper à chargé
+     */
+    public function loadHelper($name)
+    {
+        foreach ($name as $helper) {
+            if (!isset($this->$helper)) {
+                         if (class_exists('RatArt\\Bundle\\Helper\\'.$helper)) {
+                                $helperClass = 'RatArt\\Bundle\\Helper\\'.$helper;
+                               $this->$helper = new $helperClass();
+                            } elseif(class_exists('App\\Helper\\'.$helper)){
+                               $helper = 'App\\Helper\\'.$helper;
+                               $this->$helper = new $helperClass();
+                            }else{
+                                return false;
+                            }
+                    }
+                }
+        }
 }

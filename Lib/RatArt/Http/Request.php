@@ -65,7 +65,7 @@ class Request {
      *
      * @return string La racine
      */
-    public function getURIRoot()
+    public function getRoot()
     {
         return str_replace('\\', '/', dirname(dirname(dirname($_SERVER['SCRIPT_NAME']))));
     }

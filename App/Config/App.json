@@ -9,5 +9,11 @@
             "Login" : "root",
             "Password" : ""
         }
+    },
+
+    "Routes":{
+        "HasExtension" : true,
+        "Extension"    : "html"
     }
+
 }
