@@ -17,7 +17,7 @@ class Controller extends AppController
     {
     }
 
-    public function helloAction($name)
+    public function helloAction($name = null)
     {
         $this->set('name',$name);
      }

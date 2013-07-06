@@ -86,6 +86,11 @@ class Route
             }
 
         }
+
+        if ($this->canNull()) {
+            $this->getNullUrl();
+        }
+
     }
 
     /**
@@ -112,9 +117,11 @@ class Route
     public function match($url)
     {
         if (preg_match('`^'.$this->field['url'].'$`', $url,$matches)) {
-            $this->setFormatUrl($matches);
             return $matches;
-        } else {
+        } elseif($this->canNull() && $url === $this->getNullUrl()) {
+            return true;
+        }
+        else{
             return false;
         }
     }
@@ -295,29 +302,35 @@ class Route
     }
 
     /**
-     * Permet de connaître le format de l'url
+     * Permet de savoir si la route à un parametre optionnel
      *
-     * @param array $urlParams Les parametres de l'url
+     * @return boolean Le résultat de la condition
      */
-    public function setFormatUrl(array $urlParams)
+    public function canNull()
     {
-        $url = array_shift($urlParams);
-        $vars = $this->getVarsName();
-        foreach ($urlParams as $key => $value) {
-            $url = str_replace($value, '(:'.$vars[$key].')', $url);
+        if (isset($this->field['isNull']) && $this->field['isNull'] !== false) {
+            return true;
+        }else{
+            $this->field['isNull'] = false;
+            return false;
         }
-        self::$urlFormat = $url;
     }
 
     /**
-     * Retourne le format de l'url avec le placement des variables dans l'url
+     * Génére l'url de la route sans paramètres
      *
-     * @return string Le format de l'url
+     * @return string L'url sans les paramètres
      */
-    public function getUrlFormat()
+    public function getNullUrl()
     {
-        return self::$urlFormat;
+        $url = $this->getUrl();
+        $pos = strpos($url, '(');
+        $pos2 = strrchr($url, '(');
+        $url = str_replace(substr($url,($pos - $pos2)),'',$url);
+        $url = str_replace('\.', '.',$url);
+        $url = '/'.trim(str_replace('\/', '/', $url),'/');
+        $this->field['nullUrl'] = $url;
+        return $url;
     }
-
 
 }

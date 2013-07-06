@@ -9,9 +9,9 @@
         "url"     :"/hello/(:alpha)",
         "action" : "hello",
         "vars" : "name",
+        "isNull" : true,
         "auto-render" : true
     },
-
 
     "Pages_Show":{
         "url" : "/show/(:alpha)-(:num)",

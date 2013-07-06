@@ -12,7 +12,7 @@
     },
 
     "Routes":{
-        "HasExtension" : true,
+        "HasExtension" : false,
         "Extension"    : "html"
     }
 

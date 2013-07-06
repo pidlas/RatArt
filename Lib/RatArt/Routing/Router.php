@@ -53,18 +53,21 @@ class Router
         foreach (self::$routes as $route) {
             //Si l'URL correspond
             if ( $route->match($url) !== false) {
-                $varsValues = $route->match($url);
                 if ($route->hasVars()) {
 
                     $varsName = $route->getVarsName();
                     $listVars = array();
 
-                    foreach ($varsValues as $key => $value) {
+                    $varsValues = $route->match($url);
+                   // Si l'url ne correspond pas à la route avec des paramètres optionnel
+                   if ($url !== $route->getNullUrl()) {
+                       foreach ($varsValues as $key => $value) {
 
-                      if ($key !== 0) {
-                          $listVars[$varsName[$key - 1]] = $value;
+                        if ($key !== 0) {
+                            $listVars[$varsName[$key - 1]] = $value;
+                        }
                       }
-                    }
+                   }
                     $route->setVars($listVars);
                 }
                 return $route;
