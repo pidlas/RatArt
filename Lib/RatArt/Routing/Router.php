@@ -4,6 +4,7 @@ namespace RatArt\Routing;
 use RatArt\Routing\Route;
 use RatArt\Http\Request;
 use RatArt\Bundle\AppController;
+use RatArt\Utils\Configure;
 
 /**
  * Le router permet de lier une URL à un Bundle spécifique et à une action
@@ -119,7 +120,7 @@ class Router
         try {
             $matchedRoute = $this->getRoute($Request->requestURI());
         } catch (\RuntimeException $e) {
-            die($e->getmessage());
+            $this->Controller->notFound($e->getmessage());
         }
 
         $classController = 'App\\Bundle\\'.$matchedRoute->getBundle().'\\Controller';
@@ -153,23 +154,33 @@ class Router
     {
       $name = $params['name'];
       $url = '';
+      //Pour chaque route
       foreach (self::$routes as $route) {
+        //On trouve celle qui convient
         if ($route->Name === $name) {
             if (isset($params['params'])) {
                 $vars = $route->getVarsName();
                 $urlParams=explode(',',$params['params']);
+                // pour savoir combien de parametres à la route
                 preg_match_all("/\([^)]+\)/", $route->getUrl(),$matches);
                 foreach ($matches[0] as $key => $value) {
-
+                    //et les remplace par leur valeur dans l'url
                     $url = str_replace($value, $urlParams[$key], $route->getUrl());
-
                 }
             }else{
                 $url = $route->getUrl();
             }
+          if (Configure::read('App.Routes.ExtensionIfNull') !== false && $url !== '\/' ) {
+              if ($route->hasExtension() !== false && strpos($url,'.'.$route->hasExtension() === false)) {
+                      $url = $url. '.'.$route->hasExtension();
+                  } elseif (Configure::read('App.Routes.HasExtension') === true and Configure::read('App.Routes.Extension') !== '' && strpos($url,'.'.$route->hasExtension() === false)) {
+                      $url = $url. '.'.Configure::read('App.Routes.Extension');
+                  }
+          }
         }
       }
       $url = str_replace('\/', '/', $url);
+      $url = str_replace('\.', '.', $url);
       return str_replace('//', '/', $this->Request->getRoot().$url);
 
     }

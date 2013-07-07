@@ -13,7 +13,8 @@
 
     "Routes":{
         "HasExtension" : false,
-        "Extension"    : "html"
+        "Extension"    : "html",
+        "ExtensionIfNull" : false
     }
 
 }

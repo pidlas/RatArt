@@ -90,7 +90,6 @@ class Route
         if ($this->canNull()) {
             $this->getNullUrl();
         }
-
     }
 
     /**
@@ -118,7 +117,8 @@ class Route
     {
         if (preg_match('`^'.$this->field['url'].'$`', $url,$matches)) {
             return $matches;
-        } elseif($this->canNull() && $url === $this->getNullUrl()) {
+        }
+        elseif($this->canNull() && $url === $this->getNullUrl()) {
             return true;
         }
         else{
@@ -293,7 +293,7 @@ class Route
      */
     public function hasExtension()
     {
-        if (isset($this->field['extension'])) {
+        if (isset($this->field['extension']) && $this->field['extension'] !== '') {
            return $this->field['extension'];
         } else {
             return false;
@@ -329,6 +329,16 @@ class Route
         $url = str_replace(substr($url,($pos - $pos2)),'',$url);
         $url = str_replace('\.', '.',$url);
         $url = '/'.trim(str_replace('\/', '/', $url),'/');
+
+        if (Configure::read('App.Routes.ExtensionIfNull') !== false) {
+            if ($this->hasExtension() !== false) {
+
+                    $url = $url. '.'.$this->hasExtension();
+                } elseif (Configure::read('App.Routes.HasExtension') === true and Configure::read('App.Routes.Extension') !== '') {
+                    $url = $url. '.'.Configure::read('App.Routes.Extension');
+                }
+        }
+
         $this->field['nullUrl'] = $url;
         return $url;
     }

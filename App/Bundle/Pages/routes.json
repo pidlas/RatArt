@@ -10,7 +10,8 @@
         "action" : "hello",
         "vars" : "name",
         "isNull" : true,
-        "auto-render" : true
+        "auto-render" : true,
+        "extension" : ""
     },
 
     "Pages_Show":{
